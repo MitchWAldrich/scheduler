@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Show(props) {
-  const { student, interviewer, onEdit, onDelete } = props;
+  const { student, onEdit } = props;
 
   return (
     <main className="appointment__card appointment__card--show">
@@ -9,7 +9,7 @@ export default function Show(props) {
         <h2 className="text--regular">{student}</h2>
         <section className="interviewer">
           <h4 className="text--light">Interviewer</h4>
-          <h3 className="text--regular">{interviewer.name}</h3>
+          <h3 className="text--regular">{props.interviewer.name}</h3>
         </section>
       </section>
       <section className="appointment__card-right">
@@ -19,7 +19,7 @@ export default function Show(props) {
             src="images/edit.png"
             alt="Edit"
           />
-          <img onClick={onDelete}
+          <img onClick={props.onDelete}
             className="appointment__actions-button"
             src="images/trash.png"
             alt="Delete"
