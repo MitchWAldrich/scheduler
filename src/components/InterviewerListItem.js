@@ -10,7 +10,7 @@ import "components/InterviewerListItem.scss";
 //selected:boolean
 //setInterviewer:function
 export default function InterviewerListItem(props) {
-  const { id, name, avatar, selected, setInterviewer } = props;
+  const { name, avatar, selected, setInterviewer } = props;
   
   let interviewerClass = classNames('interviewers__item', {
     'interviewers__item--selected': selected
