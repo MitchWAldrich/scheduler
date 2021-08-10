@@ -9,74 +9,19 @@ import "components/Application.scss";
 // import DayListItem from "./DayListItem";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import useApplicationData from "hooks/useVisualMode";
+import useApplicationData from "hooks/useApplicationData";
+
 // import Form from "./Appointment/Form";
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 export default function Application(props) {
-  // const {
-  //   state,
-  //   setDay,
-  //   bookInterview,
-  //   cancelInterview
-  // } = useApplicationData();
-
-  const [state, setState] = useState({
-    day: 'Monday',
-    days: [],
-    appointments: {},
-    interviewers: {} 
-  })
-  const setDay = day => setState({ ...state, day });
-  
-  
-  useEffect(() => {
-    Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
-    ]).then((all) => {
-      const [days, appointments, interviewers] = all;
-      setState(prev => ({...prev, days: days.data, appointments: appointments.data, interviewers: interviewers.data}));
-    })}, []);
-    
-    const bookInterview = (id, interview) => {
-      const appointment = {
-        ...state.appointments[id],
-        interview: { ...interview }
-      };
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-      
-      return axios.put(`/api/appointments/${id}`, appointment)
-        .then(() => setState({...state, appointments}))
-        .catch((e) => {
-          throw e
-        })
-    }
-
-    const cancelInterview = (id) => {
-      console.log(id);
-      const appointment = {
-        ...state.appointments[id],
-        interview: null
-      };
-      
-      const appointments = {
-        ...state.appointments,
-        [id]: appointment
-      };
-
-      return axios.delete(`/api/appointments/${id}`, appointment)
-        .then(() => setState({...state, appointments}))
-        .catch((e) => {
-          throw e
-        })
-    }
-
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
       
   const dailyInterviewers = getInterviewersForDay(state, state.day);
@@ -101,8 +46,7 @@ export default function Application(props) {
       />
       )
     })
-    
- 
+     
   return (
     <main className="layout">
       <section className="sidebar">
@@ -116,7 +60,9 @@ export default function Application(props) {
           <DayList
             days={state.days}
             day={state.day}
-            setDay={setDay} />
+            setDay={setDay} 
+            // spots={}
+          />
 
         </nav>
         <img
