@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Show(props) {
-  const { student, onEdit } = props;
+  const { student } = props;
 
   return (
     <main className="appointment__card appointment__card--show">
@@ -14,7 +14,7 @@ export default function Show(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <img onClick={onEdit}
+          <img onClick={props.onEdit}
             className="appointment__actions-button"
             src="images/edit.png"
             alt="Edit"
