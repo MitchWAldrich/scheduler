@@ -9,11 +9,19 @@ import "components/Application.scss";
 // import DayListItem from "./DayListItem";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
+import useApplicationData from "hooks/useVisualMode";
 // import Form from "./Appointment/Form";
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 export default function Application(props) {
+  // const {
+  //   state,
+  //   setDay,
+  //   bookInterview,
+  //   cancelInterview
+  // } = useApplicationData();
+
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
@@ -34,7 +42,6 @@ export default function Application(props) {
     })}, []);
     
     const bookInterview = (id, interview) => {
-      console.log(id, interview);
       const appointment = {
         ...state.appointments[id],
         interview: { ...interview }
@@ -43,15 +50,11 @@ export default function Application(props) {
         ...state.appointments,
         [id]: appointment
       };
-      // setState({...state, appointments});
       
       return axios.put(`/api/appointments/${id}`, appointment)
-        .then((results) => {
-          setState({...state, appointments});
-          console.log(results)
-        })
-        .catch((err) => {
-          console.log(err)
+        .then(() => setState({...state, appointments}))
+        .catch((e) => {
+          throw e
         })
     }
 
@@ -61,21 +64,16 @@ export default function Application(props) {
         ...state.appointments[id],
         interview: null
       };
-      console.log('appt', appointment)
+      
       const appointments = {
         ...state.appointments,
         [id]: appointment
       };
-      console.log('appts', appointments)
-      // setState({...state, appointments});
 
       return axios.delete(`/api/appointments/${id}`, appointment)
-        .then((results) => {
-          setState({...state, appointments});
-          console.log(results)
-        })
-        .catch((err) => {
-          console.log(err)
+        .then(() => setState({...state, appointments}))
+        .catch((e) => {
+          throw e
         })
     }
 
@@ -86,6 +84,7 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const parsedAppointments = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
+  
    
     
     return (
@@ -128,9 +127,6 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {parsedAppointments}
-        {/* <Form 
-    interviewers={dailyInterviewers}
-  /> */}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
