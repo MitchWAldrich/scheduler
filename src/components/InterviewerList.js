@@ -17,7 +17,7 @@ export default function InterviewerList(props) {
     avatar={data.avatar}
     selected={data.id === interviewer}
     setInterviewer={(event) => setInterviewer(data.id)} 
-    />); //don't need to {...data} ??
+    />);
     
     return (
       <section className="interviewers">
