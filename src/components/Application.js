@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React from "react";
 
 import "components/Button.scss";
 import "components/DayListItem.scss";
 import "components/Application.scss";
 
-// import Button from "./Button";
-// import DayListItem from "./DayListItem";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import useApplicationData from "hooks/useApplicationData";
-
-// import Form from "./Appointment/Form";
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
@@ -23,14 +18,13 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
-      
+  //interviewers available on a given day from state object 
   const dailyInterviewers = getInterviewersForDay(state, state.day);
-    
+  
+  //appointments available on a given day from state object
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const parsedAppointments = dailyAppointments.map(appointment => {
-    const interview = getInterview(state, appointment.interview);
-  
-   
+    const interview = getInterview(state, appointment.interview); //map through appointments to add interview details and create a more useable Appointment object
     
     return (
       <Appointment
@@ -41,8 +35,6 @@ export default function Application(props) {
       interviewers={dailyInterviewers}
       bookInterview={bookInterview}
       cancelInterview={cancelInterview}
-      
-      // {...appointment}
       />
       )
     })
@@ -61,7 +53,6 @@ export default function Application(props) {
             days={state.days}
             day={state.day}
             setDay={setDay} 
-            // spots={}
           />
 
         </nav>
