@@ -1,3 +1,4 @@
+//mock object data for testing
 const fixtures = {
   days: [
     {
@@ -53,6 +54,7 @@ const fixtures = {
   }
 };
 
+//jest mock functions to handle api routing
 export default {
   get: jest.fn(url => {
     if (url === "/api/days") {
@@ -79,7 +81,8 @@ export default {
       });
     }
   }),
-
+  
+  //mock PUT routing for creating an appointment
   put: jest.fn(url => {
     if (url === "/api/days/1") {
       return Promise.resolve({
@@ -104,7 +107,8 @@ export default {
         data: fixtures.interviewers
       });
     }
-
+    
+    //mock PUT routing for editing an appointment
     if (url === "/api/days/2") {
       return Promise.resolve({
         status: 204,
@@ -129,7 +133,8 @@ export default {
       });
     }
   }),
-
+  
+  //mock DELETE route to delete an appointment
   delete: jest.fn(url => {
     if (url === "/api/days/2") {
       return Promise.resolve({
