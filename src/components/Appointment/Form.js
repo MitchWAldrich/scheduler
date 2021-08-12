@@ -3,41 +3,37 @@ import React, { useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
-
-/*
-State: name(string), interviewer(number)
-Actions: setName, setInterviewer
-Props: name(string), interviewers(array), interviewer(num), onSave, onCancel
-*/
-
 export default function Form(props) {
-  const { interviewers } = props;
-
+  //managin state for Name, Interviewer, and Errors
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
+  //clear the name and interviewer inputs
   const reset = function() {
     setName("");
     setInterviewer(null);
   }
 
+  //clear forms onclick Cancel
   const cancel = function() {
     reset();
     props.onCancel();
   }
   
+  //save interview with name and interviewer onclick Save
   const save = () => {
     props.onSave(name, interviewer);
   }
 
+  //validates that a name has been inputted in order to save an appointment
   const validate = () => {
     if (name === "") {
-      setError("Student name cannot be blank");
+      setError("Student name cannot be blank"); //sets error if no name
       return;
     }
 
-    setError("");
+    setError(""); //clears error so save is functional
 
     save();
   }
@@ -58,7 +54,7 @@ export default function Form(props) {
         <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList 
-          interviewers={interviewers} 
+          interviewers={props.interviewers} 
           interviewer={interviewer} 
           setInterviewer={setInterviewer} />
       </section>
