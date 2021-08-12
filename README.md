@@ -4,11 +4,14 @@ Interview Scheduler is a React application that allows users to book and cancel 
 
 ## Final Product
 
-["Scheduler Main Display"](https://github.com/MitchWAldrich/scheduler/blob/master/public/screenshots/Scheduler%20Display.png?raw=true)
+Scheduler Main Display
+!["Scheduler Main Display"](https://github.com/MitchWAldrich/scheduler/blob/master/public/screenshots/Scheduler%20Display.png?raw=true)
 
-["Scheduler Create"](https://github.com/MitchWAldrich/scheduler/blob/master/public/screenshots/Scheduler%20Create.png?raw=true)
+Scheduler Create
+!["Scheduler Create"](https://github.com/MitchWAldrich/scheduler/blob/master/public/screenshots/Scheduler%20Create.png?raw=true)
 
-["Scheduler Edit and Delete"](https://github.com/MitchWAldrich/scheduler/blob/master/public/screenshots/Scheduler%20Edit%20and%20Delete.png?raw=true)
+Scheduler Edit and Delete
+!["Scheduler Edit and Delete"](https://github.com/MitchWAldrich/scheduler/blob/master/public/screenshots/Scheduler%20Edit%20and%20Delete.png?raw=true)
 
 ## Dependencies
 
