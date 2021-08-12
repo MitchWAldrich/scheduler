@@ -1,9 +1,9 @@
-export function getAppointmentsForDay(state, day) {
+export function getAppointmentsForDay(state, day) {//retrieve available appointments for a given day
   const appointments = [];
-  const filteredDay = state.days.filter(item => item.name === day);
+  const filteredDay = state.days.filter(item => item.name === day);//filter day from args
  
   if (state.days.length === 0 || filteredDay.length === 0) {
-    return [];
+    return [];//if no day given, return an empty array
   }
  
   const daysAppointments = filteredDay[0].appointments;
@@ -12,77 +12,49 @@ export function getAppointmentsForDay(state, day) {
     
     for (let item in state.appointments) {
      
-      if (appt === state.appointments[item].id) {
+      if (appt === state.appointments[item].id) { //if appointment matches the appointment id, add to the appointments array
         appointments.push(state.appointments[item])
       }
     }
   }
   
-  return appointments;
+  return appointments; //return updated appointments array
 }
 
+//return formatted Interview Object for rendering
 export function getInterview(state, interview) {
-  if (interview === null) {
+  if (interview === null) { //if no interview, return null 
     return null;
   }
-  const interviewerID = interview.interviewer
+  const interviewerID = interview.interviewer //get interviewer ID from interview object
   
-  for (let appt in state.appointments) {
-    let interviewObj = state.appointments[appt].interview
+  for (let appt in state.appointments) {//loop through appointments
+    let interviewObj = state.appointments[appt].interview //interview object at given appointment
     let interviewerObj = {};
 
-    if (!state.appointments[appt].interview) {
+    if (!state.appointments[appt].interview) {//if interview is null, continue to loop
       continue
-    } else if (state.appointments[appt].interview.interviewer === interviewerID && interview.student === state.appointments[appt].interview.student) {
+    } else if (state.appointments[appt].interview.interviewer === interviewerID && interview.student === state.appointments[appt].interview.student) {//if student and interviewer match
       
       for (let interviewer in state.interviewers) {
         if (state.interviewers[interviewer].id === interviewerID) {
-          interviewerObj = state.interviewers[interviewer]
+          interviewerObj = state.interviewers[interviewer]//update the interviewer object
         }
       }
       
-      interviewObj = {...interviewObj, interviewer: interviewerObj}
-      return interviewObj
+      interviewObj = {...interviewObj, interviewer: interviewerObj}//spread the updated interviewer into the state object
+      return interviewObj//return updated state object
     }
   }
 }
 
-// export function getInterview(state, interview) {
-//   if (interview === null) {
-//     return null;
-//   }
-//   const interviewerID = interview.interviewer;
-  
-//   for (let appt in state.appointments) {
-    
-    
-
-//       for (let interview in state.appointments[appt].interview) {
-//         if (interviewerID === state.appointments[appt].interview[interview]) {
-//           let interviewObj = state.appointments[appt].interview;
-       
-//           let interviewerName = state.appointments[appt].interview.interviewer;
-
-//           for (let name in state.interviewers) {
-//             if (state.interviewers[name].id === interviewerName) {
-//               interviewerName = state.interviewers[name];
-//             }
-//           }
-//           interviewObj = { ...interviewObj, interviewer: interviewerName }
-         
-//           return interviewObj;
-//         }
-//       }
-//     }
-  
-// }
-
+//retrieve interviewers available on a given day
 export function getInterviewersForDay(state, day) {
   const interviewers = [];
-  const filteredDay = state.days.filter(item => item.name === day);
+  const filteredDay = state.days.filter(item => item.name === day);//find day in state from args
 
   if (state.days.length === 0 || filteredDay.length === 0) {
-    return [];
+    return [];//if not day given, return an empty array
   }
  
   const daysInterviewers = filteredDay[0].interviewers;
@@ -90,12 +62,12 @@ export function getInterviewersForDay(state, day) {
 
     for (let item in state.interviewers) {
      
-      if (elem === state.interviewers[item].id) {
-        interviewers.push(state.interviewers[item])
+      if (elem === state.interviewers[item].id) {//if interviewer id from state matches interviewer for a given day
+        interviewers.push(state.interviewers[item])//add interviewer to array
       }
     }
   }
 
-  return interviewers;
+  return interviewers;//return updated interviewers array
 }
 
