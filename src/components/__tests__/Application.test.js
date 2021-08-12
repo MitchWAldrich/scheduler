@@ -107,7 +107,6 @@ describe("Application", () => {
     fireEvent.change(getByPlaceholderText(appointment, /Enter Student Name/i), { target: { value: "Ryan Reynolds"}});
 
     // 8. Confirm new interviewer is chosen
-    
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     // 9. Click the "Save" button
@@ -178,6 +177,7 @@ describe("Application", () => {
     const appointment = appointments.find(id => queryByText(id, "Archie Cohen"));
     
     fireEvent.click(getByAltText(appointment, "Delete"));
+
     // 4. Check the Confirm screen rendered by searching for text "Delete the appointment?"
     expect(getByText(appointment, "Delete the appointment?")).toBeInTheDocument();
     
@@ -186,21 +186,23 @@ describe("Application", () => {
     
     // 6. Check that the element with text "Deleting" is displayed
     expect(getByText(appointment, "Deleting...")).toBeInTheDocument();
-
+    
+    // 7. Wait for "Deleting" mode to clear
     await waitForElementToBeRemoved(() => getByText(appointment, "Deleting..."));
-
+    
+    // 8. Check the Error screen rendered
     expect(getByText(appointment, "Could not delete appointment")).toBeInTheDocument();
     
+    // 9. Click the "Close" button
     fireEvent.click(getByAltText(appointment, "Close"));
-
+    
+    // 10. Confirm the error returned to the created appointment
     expect(getByText(appointment, "Archie Cohen"));
 
-    // 13. Check that the DayListItem with the text "Monday" has the text "1 spot remaining"
+    // 11. Check that the DayListItem with the text "Monday" has the text "1 spot remaining"
     const day = getAllByTestId(container, "day").find(day => queryByText(day, "Monday"));
 
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
-
-    console.log(prettyDOM(appointment))
   })
     
 })
